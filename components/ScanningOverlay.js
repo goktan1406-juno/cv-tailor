@@ -73,13 +73,16 @@ export default function ScanningOverlay({ fileName }) {
   }, []);
 
   useEffect(() => {
-    const target = steps[stepIdx].pct;
+    const isLastStep = stepIdx === steps.length - 1;
+    const target = isLastStep ? 99 : steps[stepIdx].pct;
+    // Son stepta çok yavaş ilerle (API bekleniyor hissi vermesin)
+    const interval = isLastStep ? 1200 : 18;
     const tick = setInterval(() => {
       setDisplayPct(prev => {
         if (prev >= target) { clearInterval(tick); return prev; }
         return Math.min(prev + 1, target);
       });
-    }, 18);
+    }, interval);
     return () => clearInterval(tick);
   }, [stepIdx]);
 
