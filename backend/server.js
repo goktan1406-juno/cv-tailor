@@ -7,6 +7,17 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: '20mb' }));
 
+// Large body / aborted request hatalarını yakala
+app.use((err, req, res, next) => {
+  if (err.type === 'entity.too.large') {
+    return res.status(413).json({ error: 'PDF dosyası çok büyük. 10MB altı bir dosya deneyin.' });
+  }
+  if (err.message === 'request aborted') {
+    return res.status(400).json({ error: 'Bağlantı kesildi. Lütfen tekrar deneyin.' });
+  }
+  next(err);
+});
+
 const SYSTEM_PROMPT = `You are an expert CV writer and career consultant.
 You will receive a user's CV and a job listing. Optimize the CV for that job listing.
 
@@ -80,7 +91,7 @@ Rules:
     - experienceIndex: index of most relevant experience if placement is "experience", otherwise null
 12. Return pure JSON only.`;
 
-app.get('/health', (req, res) => {
+app.get('/health', (_req, res) => {
   res.json({ status: 'ok' });
 });
 
