@@ -2,15 +2,22 @@ require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
+const multer = require('multer');
 
 const app = express();
 app.use(cors());
-app.use(express.json({ limit: '20mb' }));
+app.use(express.json({ limit: '1mb' }));
+app.use(express.urlencoded({ extended: false }));
 
-// Large body / aborted request hatalarını yakala
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 15 * 1024 * 1024 }, // 15MB
+});
+
+// Hata yakalayıcı
 app.use((err, req, res, next) => {
-  if (err.type === 'entity.too.large') {
-    return res.status(413).json({ error: 'PDF dosyası çok büyük. 10MB altı bir dosya deneyin.' });
+  if (err.type === 'entity.too.large' || err.code === 'LIMIT_FILE_SIZE') {
+    return res.status(413).json({ error: 'PDF dosyası çok büyük. 15MB altı bir dosya deneyin.' });
   }
   if (err.message === 'request aborted') {
     return res.status(400).json({ error: 'Bağlantı kesildi. Lütfen tekrar deneyin.' });
@@ -95,26 +102,30 @@ app.get('/health', (_req, res) => {
   res.json({ status: 'ok' });
 });
 
-app.post('/tailor', async (req, res) => {
+app.post('/tailor', upload.single('pdf'), async (req, res) => {
   // Client bağlantıyı keserse OpenAI isteğini iptal et
   let aborted = false;
   req.on('close', () => { aborted = true; });
 
-  const { cvBase64, cvFileName, cvText, jobDescription } = req.body;
+  const { cvText, jobDescription } = req.body;
+  const pdfFile = req.file;
 
   if (!jobDescription) {
     return res.status(400).json({ error: 'jobDescription is required' });
   }
-  if (!cvBase64 && !cvText) {
-    return res.status(400).json({ error: 'cvBase64 or cvText is required' });
+  if (!pdfFile && !cvText) {
+    return res.status(400).json({ error: 'pdf file or cvText is required' });
   }
+
+  const cvBase64 = pdfFile ? pdfFile.buffer.toString('base64') : null;
+  const cvFileName = pdfFile?.originalname || 'cv.pdf';
 
   const cvContent = cvBase64
     ? [
         {
           type: 'file',
           file: {
-            filename: cvFileName || 'cv.pdf',
+            filename: cvFileName,
             file_data: `data:application/pdf;base64,${cvBase64}`,
           },
         },

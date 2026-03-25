@@ -1,11 +1,28 @@
 import axios from 'axios';
 import { BACKEND_URL } from '../config';
 
-export async function tailorCV({ cvBase64, cvFileName, cvText, jobDescription }) {
+export async function tailorCV({ cvUri, cvFileName, cvText, jobDescription }) {
+  const formData = new FormData();
+
+  if (cvUri) {
+    formData.append('pdf', {
+      uri: cvUri,
+      type: 'application/pdf',
+      name: cvFileName || 'cv.pdf',
+    });
+  } else if (cvText) {
+    formData.append('cvText', cvText);
+  }
+
+  formData.append('jobDescription', jobDescription);
+
   const response = await axios.post(
     `${BACKEND_URL}/tailor`,
-    { cvBase64, cvFileName, cvText, jobDescription },
-    { timeout: 120000 }
+    formData,
+    {
+      headers: { 'Content-Type': 'multipart/form-data' },
+      timeout: 120000,
+    }
   );
   return response.data;
 }

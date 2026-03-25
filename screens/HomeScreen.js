@@ -23,7 +23,7 @@ const ACCENT = '#4F46E5';
 export default function HomeScreen({ navigation }) {
   const [mode, setMode] = useState('pdf'); // 'pdf' | 'create'
   const [cvFile, setCvFile] = useState(null);
-  const [cvBase64, setCvBase64] = useState(null);
+  const [cvUri, setCvUri] = useState(null);
   const [jobDescription, setJobDescription] = useState('');
   const [loading, setLoading] = useState(false);
   const [credits, setCredits] = useState(null);
@@ -49,23 +49,22 @@ export default function HomeScreen({ navigation }) {
       const asset = result.assets?.[0];
       if (!asset?.uri) return;
 
-      let file = new File(asset.uri);
-      if (asset.uri.startsWith('content://')) {
+      let uri = asset.uri;
+      if (uri.startsWith('content://')) {
         const dest = new File(Paths.cache, asset.name || 'cv.pdf');
-        file.copy(dest);
-        file = dest;
+        new File(uri).copy(dest);
+        uri = dest.uri;
       }
 
-      const base64 = await file.base64();
       setCvFile(asset);
-      setCvBase64(base64);
+      setCvUri(uri);
     } catch (err) {
       Alert.alert(t('alert.error'), err?.message || t('alert.pdfError'));
     }
   };
 
   const handleTailor = async () => {
-    if (mode === 'pdf' && !cvBase64) {
+    if (mode === 'pdf' && !cvUri) {
       Alert.alert(t('alert.cvRequired'), t('alert.cvRequiredMsg'));
       return;
     }
@@ -82,7 +81,7 @@ export default function HomeScreen({ navigation }) {
     setCredits(c => Math.max(0, (c ?? 1) - 1));
     setLoading(true);
     try {
-      const cvData = await tailorCV({ cvBase64, cvFileName: cvFile?.name, jobDescription });
+      const cvData = await tailorCV({ cvUri, cvFileName: cvFile?.name, jobDescription });
       navigation.navigate('Result', { cvData, jobDescription });
     } catch (err) {
       const msg = err.response?.data?.error?.message || err.message || t('alert.unexpectedError');
@@ -95,7 +94,7 @@ export default function HomeScreen({ navigation }) {
   const switchMode = (m) => {
     setMode(m);
     setCvFile(null);
-    setCvBase64(null);
+    setCvUri(null);
   };
 
   if (loading) {
