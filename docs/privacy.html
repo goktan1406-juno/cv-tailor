@@ -8,56 +8,71 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #fff; color: #1E293B; max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
     header { margin-bottom: 40px; }
-    .back { display: inline-block; color: #4F46E5; text-decoration: none; font-size: 14px; margin-bottom: 24px; }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+    .back { color: #4F46E5; text-decoration: none; font-size: 14px; }
     .back:hover { text-decoration: underline; }
+    .lang-toggle { display: flex; gap: 4px; background: #F1F5F9; border-radius: 8px; padding: 3px; }
+    .lang-btn { padding: 5px 14px; border-radius: 6px; border: none; background: transparent; font-size: 13px; font-weight: 600; color: #64748B; cursor: pointer; transition: all 0.15s; }
+    .lang-btn.active { background: #fff; color: #0F172A; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
     h1 { font-size: 32px; font-weight: 800; color: #0F172A; letter-spacing: -0.5px; margin-bottom: 6px; }
     .meta { font-size: 13px; color: #94A3B8; margin-bottom: 16px; }
     .intro { font-size: 15px; color: #475569; line-height: 1.7; margin-bottom: 36px; }
     h2 { font-size: 16px; font-weight: 700; color: #0F172A; margin-bottom: 8px; margin-top: 32px; }
     p { font-size: 14px; color: #475569; line-height: 1.8; white-space: pre-line; }
     footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #E2E8F0; font-size: 12px; color: #94A3B8; }
+    .content { display: none; }
+    .content.active { display: block; }
   </style>
 </head>
 <body>
-  <header>
+  <div class="top-bar">
     <a class="back" href="index.html">← CV Tailor</a>
-    <h1>Gizlilik Politikası</h1>
-    <p class="meta">Son güncelleme: Mart 2025</p>
-    <p class="intro">CV Tailor olarak kişisel verilerinizin gizliliğine büyük önem veriyoruz. Bu Gizlilik Politikası, hangi verileri topladığımızı, nasıl kullandığımızı ve haklarınızı açıklamaktadır.</p>
-  </header>
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('tr')">TR</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
 
-  <h2>1. Topladığımız Veriler</h2>
-  <p>Uygulama aşağıdaki veri kategorilerini işlemektedir:
+  <!-- TÜRKÇE -->
+  <div class="content active" id="content-tr">
+    <header>
+      <h1>Gizlilik Politikası</h1>
+      <p class="meta">Son güncelleme: Mart 2025</p>
+      <p class="intro">CV Tailor olarak kişisel verilerinizin gizliliğine büyük önem veriyoruz. Bu Gizlilik Politikası, hangi verileri topladığımızı, nasıl kullandığımızı ve haklarınızı açıklamaktadır.</p>
+    </header>
+
+    <h2>1. Topladığımız Veriler</h2>
+    <p>Uygulama aşağıdaki veri kategorilerini işlemektedir:
 
 • CV İçeriği: Yüklediğiniz veya oluşturduğunuz CV dosyası ve metin içeriği
 • İş İlanı Metni: Girdiğiniz iş ilanı açıklaması
 • Yerel Depolama Verileri: Kaydedilmiş CV'ler, kredi bakiyesi ve abonelik bilgileri (yalnızca cihazınızda)
 • Satın Alma Bilgileri: Apple App Store üzerinden gerçekleştirilen işlem kayıtları</p>
 
-  <h2>2. Verilerin Kullanım Amacı</h2>
-  <p>Topladığımız veriler şu amaçlarla kullanılmaktadır:
+    <h2>2. Verilerin Kullanım Amacı</h2>
+    <p>Topladığımız veriler şu amaçlarla kullanılmaktadır:
 
 • CV optimizasyon hizmetinin sunulması
 • Kredi ve abonelik yönetimi
 • Uygulama işlevselliğinin iyileştirilmesi
 • Yasal yükümlülüklerin yerine getirilmesi</p>
 
-  <h2>3. OpenAI ile Veri Paylaşımı</h2>
-  <p>CV optimizasyonu için CV içeriğiniz ve iş ilanı metni OpenAI, Inc.'in API'sine iletilmektedir. Bu veriler OpenAI tarafından yapay zeka modelini geliştirmek amacıyla kullanılabilir. OpenAI'nin veri işleme pratikleri hakkında bilgi için openai.com/privacy adresini ziyaret ediniz.
+    <h2>3. OpenAI ile Veri Paylaşımı</h2>
+    <p>CV optimizasyonu için CV içeriğiniz ve iş ilanı metni OpenAI, Inc.'in API'sine iletilmektedir. Bu veriler OpenAI tarafından yapay zeka modelini geliştirmek amacıyla kullanılabilir. Ayrıntılar için openai.com/privacy adresini ziyaret ediniz.
 
-Önemli: CV'nize kişisel bilgiler (TC kimlik numarası, banka bilgileri vb.) eklememenizi tavsiye ederiz.</p>
+Önemli: CV'nize TC kimlik numarası, banka bilgisi gibi hassas kişisel veriler eklememenizi tavsiye ederiz.</p>
 
-  <h2>4. Apple App Store ve Satın Almalar</h2>
-  <p>Uygulama içi satın almalar Apple'ın altyapısı üzerinden gerçekleştirilmektedir. Ödeme bilgileriniz doğrudan Apple tarafından işlenir; biz bu bilgilere erişemeyiz. Apple'ın gizlilik politikası için apple.com/legal/privacy adresini ziyaret ediniz.</p>
+    <h2>4. Apple App Store ve Satın Almalar</h2>
+    <p>Uygulama içi satın almalar Apple'ın altyapısı üzerinden gerçekleştirilmektedir. Ödeme bilgileriniz doğrudan Apple tarafından işlenir; biz bu bilgilere erişemeyiz.</p>
 
-  <h2>5. Yerel Depolama</h2>
-  <p>Kaydedilen CV'ler, kredi bakiyesi ve abonelik bilgileri yalnızca cihazınızda yerel olarak saklanmaktadır. Bu veriler sunucularımıza aktarılmamaktadır. Uygulamayı sildiğinizde tüm yerel veriler kalıcı olarak silinir.</p>
+    <h2>5. Yerel Depolama</h2>
+    <p>Kaydedilen CV'ler, kredi bakiyesi ve abonelik bilgileri yalnızca cihazınızda yerel olarak saklanmaktadır. Bu veriler sunucularımıza aktarılmamaktadır. Uygulamayı sildiğinizde tüm yerel veriler kalıcı olarak silinir.</p>
 
-  <h2>6. Veri Güvenliği</h2>
-  <p>Verilerinizin güvenliği için endüstri standardı güvenlik önlemleri uygulamaktayız. Ancak internet üzerinden veri iletiminin %100 güvenli olmadığını hatırlatırız. CV'nizi üçüncü taraflarla paylaşmadan önce hassas kişisel bilgileri kaldırmanızı öneririz.</p>
+    <h2>6. Veri Güvenliği</h2>
+    <p>Verilerinizin güvenliği için endüstri standardı önlemler uygulamaktayız. CV'nizi üçüncü taraflarla paylaşmadan önce hassas kişisel bilgileri kaldırmanızı öneririz.</p>
 
-  <h2>7. KVKK Kapsamındaki Haklarınız</h2>
-  <p>6698 Sayılı Kişisel Verilerin Korunması Kanunu (KVKK) kapsamında aşağıdaki haklara sahipsiniz:
+    <h2>7. KVKK Kapsamındaki Haklarınız</h2>
+    <p>6698 Sayılı KVKK kapsamında aşağıdaki haklara sahipsiniz:
 
 • Kişisel verilerinizin işlenip işlenmediğini öğrenme
 • Kişisel verilerinize erişim talep etme
@@ -67,15 +82,90 @@
 
 Bu haklarınızı kullanmak için support@cvtailor.app adresine yazabilirsiniz.</p>
 
-  <h2>8. Çocukların Gizliliği</h2>
-  <p>Uygulama 13 yaşından küçük çocuklara yönelik değildir ve bu yaş grubundan bilerek kişisel veri toplamamaktayız. Çocuğunuzun uygulamamızı kullandığını fark ederseniz lütfen bizimle iletişime geçiniz.</p>
+    <h2>8. Çocukların Gizliliği</h2>
+    <p>Uygulama 13 yaşından küçük çocuklara yönelik değildir ve bu yaş grubundan bilerek kişisel veri toplamamaktayız.</p>
 
-  <h2>9. Gizlilik Politikasında Değişiklikler</h2>
-  <p>Bu politikayı zaman zaman güncelleyebiliriz. Önemli değişiklikler uygulama içi bildirim yoluyla duyurulacaktır.</p>
+    <h2>9. Değişiklikler</h2>
+    <p>Bu politikayı zaman zaman güncelleyebiliriz. Önemli değişiklikler uygulama içi bildirim yoluyla duyurulacaktır.</p>
 
-  <h2>10. İletişim</h2>
-  <p>E-posta: support@cvtailor.app</p>
+    <h2>10. İletişim</h2>
+    <p>E-posta: support@cvtailor.app</p>
 
-  <footer>© 2025 CV Tailor · <a href="terms.html" style="color:#94A3B8;">Kullanım Koşulları</a></footer>
+    <footer>© 2025 CV Tailor · <a href="terms.html" style="color:#94A3B8;">Kullanım Koşulları</a></footer>
+  </div>
+
+  <!-- ENGLISH -->
+  <div class="content" id="content-en">
+    <header>
+      <h1>Privacy Policy</h1>
+      <p class="meta">Last updated: March 2025</p>
+      <p class="intro">At CV Tailor, we take the privacy of your personal data seriously. This Privacy Policy explains what data we collect, how we use it, and your rights.</p>
+    </header>
+
+    <h2>1. Data We Collect</h2>
+    <p>The App processes the following categories of data:
+
+• CV Content: The CV file or text you upload or create
+• Job Description Text: The job listing description you enter
+• Local Storage Data: Saved CVs, credit balance, and subscription info (stored on your device only)
+• Purchase Information: Transaction records processed through the Apple App Store</p>
+
+    <h2>2. Purpose of Data Use</h2>
+    <p>Collected data is used for the following purposes:
+
+• Providing the CV optimization service
+• Managing credits and subscriptions
+• Improving App functionality
+• Fulfilling legal obligations</p>
+
+    <h2>3. Data Sharing with OpenAI</h2>
+    <p>To provide CV optimization, your CV content and job description text are transmitted to the API of OpenAI, Inc. This data may be used by OpenAI to improve their AI models. For more details, visit openai.com/privacy.
+
+Important: We recommend not including sensitive personal information (e.g., national ID numbers, banking details) in your CV.</p>
+
+    <h2>4. Apple App Store & Purchases</h2>
+    <p>In-app purchases are processed through Apple's infrastructure. Your payment information is handled directly by Apple; we do not have access to it.</p>
+
+    <h2>5. Local Storage</h2>
+    <p>Saved CVs, credit balance, and subscription data are stored locally on your device only. This data is not transmitted to our servers. Deleting the App permanently removes all locally stored data.</p>
+
+    <h2>6. Data Security</h2>
+    <p>We implement industry-standard security measures to protect your data. We recommend removing sensitive personal information from your CV before sharing it with any third parties.</p>
+
+    <h2>7. Your Rights (GDPR)</h2>
+    <p>Under applicable data protection laws, you have the following rights:
+
+• To know whether your personal data is being processed
+• To access your personal data
+• To request correction of inaccurate data
+• To request deletion under certain conditions
+• To object to data processing
+
+To exercise these rights, contact us at support@cvtailor.app.</p>
+
+    <h2>8. Children's Privacy</h2>
+    <p>The App is not directed at children under 13, and we do not knowingly collect personal data from this age group.</p>
+
+    <h2>9. Changes to This Policy</h2>
+    <p>We may update this policy from time to time. Significant changes will be communicated via in-app notification.</p>
+
+    <h2>10. Contact</h2>
+    <p>Email: support@cvtailor.app</p>
+
+    <footer>© 2025 CV Tailor · <a href="terms.html" style="color:#94A3B8;">Terms of Use</a></footer>
+  </div>
+
+  <script>
+    function setLang(lang) {
+      document.querySelectorAll('.content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.lang-btn').forEach(el => el.classList.remove('active'));
+      document.getElementById('content-' + lang).classList.add('active');
+      document.querySelector('[onclick="setLang(\'' + lang + '\')"]').classList.add('active');
+    }
+    // Tarayıcı diline göre otomatik seç
+    if (navigator.language && navigator.language.startsWith('tr') === false) {
+      setLang('en');
+    }
+  </script>
 </body>
 </html>

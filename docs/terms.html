@@ -7,72 +7,150 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #fff; color: #1E293B; max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
-    header { margin-bottom: 40px; }
-    .back { display: inline-block; color: #4F46E5; text-decoration: none; font-size: 14px; margin-bottom: 24px; }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+    .back { color: #4F46E5; text-decoration: none; font-size: 14px; }
     .back:hover { text-decoration: underline; }
+    .lang-toggle { display: flex; gap: 4px; background: #F1F5F9; border-radius: 8px; padding: 3px; }
+    .lang-btn { padding: 5px 14px; border-radius: 6px; border: none; background: transparent; font-size: 13px; font-weight: 600; color: #64748B; cursor: pointer; transition: all 0.15s; }
+    .lang-btn.active { background: #fff; color: #0F172A; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
     h1 { font-size: 32px; font-weight: 800; color: #0F172A; letter-spacing: -0.5px; margin-bottom: 6px; }
-    .meta { font-size: 13px; color: #94A3B8; }
+    .meta { font-size: 13px; color: #94A3B8; margin-bottom: 24px; }
     h2 { font-size: 16px; font-weight: 700; color: #0F172A; margin-bottom: 8px; margin-top: 32px; }
     p { font-size: 14px; color: #475569; line-height: 1.8; white-space: pre-line; }
     footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #E2E8F0; font-size: 12px; color: #94A3B8; }
+    .content { display: none; }
+    .content.active { display: block; }
   </style>
 </head>
 <body>
-  <header>
+  <div class="top-bar">
     <a class="back" href="index.html">← CV Tailor</a>
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('tr')">TR</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+
+  <!-- TÜRKÇE -->
+  <div class="content active" id="content-tr">
     <h1>Kullanım Koşulları</h1>
     <p class="meta">Son güncelleme: Mart 2025</p>
-  </header>
 
-  <h2>1. Kabul</h2>
-  <p>CV Tailor uygulamasını ("Uygulama") indirerek veya kullanarak bu Kullanım Koşulları'nı kabul etmiş olursunuz. Koşulları kabul etmiyorsanız uygulamayı kullanmayınız.</p>
+    <h2>1. Kabul</h2>
+    <p>CV Tailor uygulamasını indirerek veya kullanarak bu Kullanım Koşulları'nı kabul etmiş olursunuz. Kabul etmiyorsanız uygulamayı kullanmayınız.</p>
 
-  <h2>2. Hizmet Açıklaması</h2>
-  <p>CV Tailor, yapay zeka destekli CV optimizasyon hizmeti sunan bir mobil uygulamadır. Kullanıcılar CV'lerini yükler veya oluşturur; uygulama, yapay zeka teknolojisi aracılığıyla CV'yi belirtilen iş ilanına uygun şekilde optimize eder.</p>
+    <h2>2. Hizmet Açıklaması</h2>
+    <p>CV Tailor, yapay zeka destekli CV optimizasyon hizmeti sunan bir mobil uygulamadır. Kullanıcılar CV'lerini yükler veya oluşturur; uygulama CV'yi belirtilen iş ilanına göre optimize eder.</p>
 
-  <h2>3. Abonelik Planları ve Ücretlendirme</h2>
-  <p>Uygulama aşağıdaki ücretli seçenekler sunmaktadır:
+    <h2>3. Abonelik Planları ve Ücretlendirme</h2>
+    <p>Uygulama aşağıdaki ücretli seçenekler sunmaktadır:
 
 • Haftalık Abonelik: Belirtilen fiyat üzerinden haftalık otomatik yenileme
 • Yıllık Abonelik: Belirtilen fiyat üzerinden yıllık otomatik yenileme
-• Tek Seferlik Kredi Paketleri: 5, 10 veya 20 kredi içeren paketler
+• Tek Seferlik Kredi Paketleri: 5, 10 veya 20 kredi
 
 Tüm fiyatlar App Store'da belirtilen yerel para birimi cinsindendir ve vergiler dahildir.</p>
 
-  <h2>4. Otomatik Yenileme</h2>
-  <p>Abonelikler, mevcut dönem sona ermeden en az 24 saat önce iptal edilmediği takdirde otomatik olarak yenilenir. Yenileme ücreti, mevcut dönemin bitiminden 24 saat öncesine kadar iTunes Hesabınızdan tahsil edilir.
+    <h2>4. Otomatik Yenileme</h2>
+    <p>Abonelikler, mevcut dönem sona ermeden en az 24 saat önce iptal edilmediği takdirde otomatik olarak yenilenir. Yenileme ücreti, dönem bitiminden 24 saat öncesine kadar iTunes Hesabınızdan tahsil edilir.
 
-Aboneliğinizi App Store > Apple ID > Abonelikler bölümünden yönetebilir veya iptal edebilirsiniz.</p>
+Aboneliklerinizi App Store > Apple ID > Abonelikler bölümünden yönetebilirsiniz.</p>
 
-  <h2>5. İptal ve Geri Ödeme</h2>
-  <p>Abonelik iptalleri ve geri ödeme talepleri Apple'ın politikalarına tabidir. İptal işlemi, Apple ID hesabınızdaki Abonelikler bölümünden gerçekleştirilir. İptal sonrasında mevcut dönem sonuna kadar hizmetleriniz devam eder.
+    <h2>5. İptal ve Geri Ödeme</h2>
+    <p>İptal ve geri ödeme talepleri Apple'ın politikalarına tabidir. İptal sonrasında mevcut dönem sonuna kadar hizmetleriniz devam eder. Geri ödeme için reportaproblem.apple.com adresini ziyaret ediniz.</p>
 
-Geri ödeme talepleri için Apple'ın destek sayfasını (reportaproblem.apple.com) ziyaret edebilirsiniz.</p>
+    <h2>6. Ücretsiz Kredi</h2>
+    <p>Yeni kullanıcılara ilk açılışta 1 ücretsiz kredi tanınır. Bu kredi devredilemez ve para karşılığı değiştirilemez.</p>
 
-  <h2>6. Ücretsiz Kredi</h2>
-  <p>Yeni kullanıcılara uygulama ilk açılışında 1 adet ücretsiz kredi tanınır. Ücretsiz kredi devir edilemez ve para karşılığı değiştirilemez.</p>
+    <h2>7. Yapay Zeka ve Veri İşleme</h2>
+    <p>CV optimizasyonu için CV içeriğiniz ve iş ilanı metni OpenAI, Inc.'in API'sine iletilmektedir. Ayrıntılar için Gizlilik Politikamızı inceleyiniz.</p>
 
-  <h2>7. Yapay Zeka ve Veri İşleme</h2>
-  <p>CV optimizasyon hizmeti için CV içeriğiniz ve iş ilanı metni OpenAI, Inc.'in API'sine iletilmektedir. Bu işleme OpenAI'nin Gizlilik Politikası ve Kullanım Koşulları tabidir. Kişisel verilerinizin işlenmesiyle ilgili ayrıntılar için Gizlilik Politikamızı inceleyiniz.</p>
+    <h2>8. Fikri Mülkiyet</h2>
+    <p>Uygulama ve içeriği CV Tailor'a aittir ve telif hakkı yasalarıyla korunmaktadır. Uygulamanın kopyalanması, değiştirilmesi veya tersine mühendislikle incelenmesi yasaktır.</p>
 
-  <h2>8. Fikri Mülkiyet</h2>
-  <p>Uygulama ve içeriği (tasarım, kod, metin, grafikler dahil) CV Tailor'a aittir ve telif hakkı yasalarıyla korunmaktadır. Uygulamanın kopyalanması, değiştirilmesi, dağıtılması veya tersine mühendislikle incelenmesi yasaktır.</p>
+    <h2>9. Sorumluluk Sınırlaması</h2>
+    <p>Uygulama "olduğu gibi" sunulmaktadır. Yapay zeka tarafından üretilen içeriklerin doğruluğu garanti edilmez. İş başvurusu sonuçları için sorumluluk üstlenilmez.</p>
 
-  <h2>9. Sorumluluk Sınırlaması</h2>
-  <p>Uygulama "olduğu gibi" sunulmaktadır. CV Tailor, yapay zeka tarafından üretilen içeriklerin doğruluğunu, eksiksizliğini veya belirli bir amaca uygunluğunu garanti etmez. İş başvurunuzun sonucu için sorumluluk üstlenilmez.</p>
+    <h2>10. Yaş Gereksinimleri</h2>
+    <p>Uygulama 17 yaş ve üzeri kullanıcılara yöneliktir.</p>
 
-  <h2>10. Yaş Gereksinimleri</h2>
-  <p>Uygulama 17 yaş ve üzeri kullanıcılara yöneliktir. 18 yaşından küçük kullanıcıların ebeveyn veya yasal vasi onayıyla kullanması gerekmektedir.</p>
+    <h2>11. Değişiklikler</h2>
+    <p>Bu koşulları güncelleme hakkını saklı tutarız. Önemli değişiklikler uygulama içi bildirim yoluyla duyurulacaktır.</p>
 
-  <h2>11. Koşullarda Değişiklik</h2>
-  <p>Bu koşulları herhangi bir zamanda güncelleme hakkını saklı tutarız. Önemli değişiklikler uygulama içi bildirim veya e-posta yoluyla duyurulacaktır.</p>
+    <h2>12. Uygulanacak Hukuk</h2>
+    <p>Bu koşullar Türkiye Cumhuriyeti hukukuna tabidir. Uyuşmazlıklar İstanbul mahkemelerinde çözümlenir.</p>
 
-  <h2>12. Uygulanacak Hukuk</h2>
-  <p>Bu koşullar Türkiye Cumhuriyeti hukukuna tabidir. Uyuşmazlıklar İstanbul mahkemelerinde çözümlenir.</p>
+    <h2>13. İletişim</h2>
+    <p>E-posta: support@cvtailor.app</p>
 
-  <h2>13. İletişim</h2>
-  <p>E-posta: support@cvtailor.app</p>
+    <footer>© 2025 CV Tailor · <a href="privacy.html" style="color:#94A3B8;">Gizlilik Politikası</a></footer>
+  </div>
 
-  <footer>© 2025 CV Tailor · <a href="privacy.html" style="color:#94A3B8;">Gizlilik Politikası</a></footer>
+  <!-- ENGLISH -->
+  <div class="content" id="content-en">
+    <h1>Terms of Use</h1>
+    <p class="meta">Last updated: March 2025</p>
+
+    <h2>1. Acceptance</h2>
+    <p>By downloading or using the CV Tailor application, you agree to these Terms of Use. If you do not agree, please do not use the App.</p>
+
+    <h2>2. Service Description</h2>
+    <p>CV Tailor is a mobile application offering AI-powered CV optimization. Users upload or create their CV; the App tailors it to a specific job listing.</p>
+
+    <h2>3. Subscription Plans & Pricing</h2>
+    <p>The App offers the following paid options:
+
+• Weekly Subscription: Auto-renewing weekly at the stated price
+• Annual Subscription: Auto-renewing yearly at the stated price
+• One-Time Credit Packs: 5, 10, or 20 credits
+
+All prices are in your local currency as shown in the App Store, inclusive of applicable taxes.</p>
+
+    <h2>4. Auto-Renewal</h2>
+    <p>Subscriptions automatically renew unless cancelled at least 24 hours before the end of the current period. The renewal charge is applied to your iTunes Account within 24 hours prior to the end of the current period.
+
+Manage or cancel subscriptions in App Store > Apple ID > Subscriptions.</p>
+
+    <h2>5. Cancellation & Refunds</h2>
+    <p>Cancellations and refunds are subject to Apple's policies. Access continues until the end of the current billing period after cancellation. For refunds, visit reportaproblem.apple.com.</p>
+
+    <h2>6. Free Credit</h2>
+    <p>New users receive 1 free credit upon first launch. The free credit cannot be transferred or exchanged for money.</p>
+
+    <h2>7. AI & Data Processing</h2>
+    <p>Your CV content and job description are transmitted to OpenAI's API for optimization. Please review our Privacy Policy for details.</p>
+
+    <h2>8. Intellectual Property</h2>
+    <p>The App and its content are owned by CV Tailor and protected by copyright laws. Copying, modifying, or reverse-engineering the App is prohibited.</p>
+
+    <h2>9. Limitation of Liability</h2>
+    <p>The App is provided "as is." We do not warrant the accuracy of AI-generated content and accept no responsibility for job application outcomes.</p>
+
+    <h2>10. Age Requirements</h2>
+    <p>The App is intended for users aged 17 and above.</p>
+
+    <h2>11. Changes to Terms</h2>
+    <p>We reserve the right to update these terms. Significant changes will be communicated via in-app notification.</p>
+
+    <h2>12. Governing Law</h2>
+    <p>These terms are governed by the laws of the Republic of Turkey.</p>
+
+    <h2>13. Contact</h2>
+    <p>Email: support@cvtailor.app</p>
+
+    <footer>© 2025 CV Tailor · <a href="privacy.html" style="color:#94A3B8;">Privacy Policy</a></footer>
+  </div>
+
+  <script>
+    function setLang(lang) {
+      document.querySelectorAll('.content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.lang-btn').forEach(el => el.classList.remove('active'));
+      document.getElementById('content-' + lang).classList.add('active');
+      document.querySelector('[onclick="setLang(\'' + lang + '\')"]').classList.add('active');
+    }
+    if (navigator.language && navigator.language.startsWith('tr') === false) {
+      setLang('en');
+    }
+  </script>
 </body>
 </html>
