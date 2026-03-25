@@ -84,6 +84,10 @@ app.get('/health', (req, res) => {
 });
 
 app.post('/tailor', async (req, res) => {
+  // Client bağlantıyı keserse OpenAI isteğini iptal et
+  let aborted = false;
+  req.on('close', () => { aborted = true; });
+
   const { cvBase64, cvFileName, cvText, jobDescription } = req.body;
 
   if (!jobDescription) {
@@ -102,13 +106,16 @@ app.post('/tailor', async (req, res) => {
             file_data: `data:application/pdf;base64,${cvBase64}`,
           },
         },
-        { type: 'text', text: `## İş İlanı:\n${jobDescription}` },
+        { type: 'text', text: `## Job Listing:\n${jobDescription}` },
       ]
     : [
-        { type: 'text', text: `## CV Bilgileri:\n${cvText}\n\n## İş İlanı:\n${jobDescription}` },
+        { type: 'text', text: `## CV:\n${cvText}\n\n## Job Listing:\n${jobDescription}` },
       ];
 
   try {
+    const controller = new AbortController();
+    req.on('close', () => controller.abort());
+
     const response = await axios.post(
       'https://api.openai.com/v1/chat/completions',
       {
@@ -125,13 +132,17 @@ app.post('/tailor', async (req, res) => {
           Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
           'Content-Type': 'application/json',
         },
-        timeout: 90000,
+        timeout: 55000,
+        signal: controller.signal,
       }
     );
+
+    if (aborted) return;
 
     const raw = response.data.choices[0].message.content;
     res.json(JSON.parse(raw));
   } catch (err) {
+    if (aborted || err.code === 'ERR_CANCELED') return;
     const status = err.response?.status || 500;
     const message = err.response?.data?.error?.message || err.message || 'Unexpected error';
     res.status(status).json({ error: message });
