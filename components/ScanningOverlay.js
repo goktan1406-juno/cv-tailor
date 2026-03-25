@@ -6,19 +6,20 @@ import {
   Easing,
   StyleSheet,
 } from 'react-native';
+import { t } from '../services/i18n';
 
 const ACCENT = '#4F46E5';
 const SCAN_BOX_H = 260;
 
-const STEPS = [
-  { label: 'PDF okunuyor', pct: 10 },
-  { label: 'Bölümler tespit ediliyor', pct: 22 },
-  { label: 'Anahtar kelimeler taranıyor', pct: 36 },
-  { label: 'İş ilanı analiz ediliyor', pct: 50 },
-  { label: 'Beceriler karşılaştırılıyor', pct: 64 },
-  { label: 'Deneyim özetleri uyarlanıyor', pct: 76 },
-  { label: 'Dil ve ton optimize ediliyor', pct: 87 },
-  { label: 'Son düzenlemeler yapılıyor', pct: 94 },
+const STEPS = () => [
+  { label: t('scan.step1'), pct: 10 },
+  { label: t('scan.step2'), pct: 22 },
+  { label: t('scan.step3'), pct: 36 },
+  { label: t('scan.step4'), pct: 50 },
+  { label: t('scan.step5'), pct: 64 },
+  { label: t('scan.step6'), pct: 76 },
+  { label: t('scan.step7'), pct: 87 },
+  { label: t('scan.step8'), pct: 94 },
 ];
 
 // Placeholder document lines (PDF içeriğini simüle eder)
@@ -39,6 +40,7 @@ const DOC_LINES = [
 ];
 
 export default function ScanningOverlay({ fileName }) {
+  const steps = STEPS();
   const scanAnim = useRef(new Animated.Value(0)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const [stepIdx, setStepIdx] = useState(0);
@@ -64,14 +66,14 @@ export default function ScanningOverlay({ fileName }) {
   useEffect(() => {
     let idx = 0;
     const timer = setInterval(() => {
-      idx = Math.min(idx + 1, STEPS.length - 1);
+      idx = Math.min(idx + 1, steps.length - 1);
       setStepIdx(idx);
     }, 1800);
     return () => clearInterval(timer);
   }, []);
 
   useEffect(() => {
-    const target = STEPS[stepIdx].pct;
+    const target = steps[stepIdx].pct;
     const tick = setInterval(() => {
       setDisplayPct(prev => {
         if (prev >= target) { clearInterval(tick); return prev; }
@@ -88,8 +90,8 @@ export default function ScanningOverlay({ fileName }) {
         <View style={s.iconWrap}>
           <Text style={s.icon}>✦</Text>
         </View>
-        <Text style={s.title}>CV Analiz Ediliyor</Text>
-        <Text style={s.subtitle}>Yapay zeka iş ilanına göre optimize ediyor</Text>
+        <Text style={s.title}>{t('scan.title')}</Text>
+        <Text style={s.subtitle}>{t('scan.subtitle')}</Text>
       </View>
 
       {/* Document Scanner */}
@@ -139,7 +141,7 @@ export default function ScanningOverlay({ fileName }) {
       {/* Progress */}
       <View style={s.progressSection}>
         <View style={s.progressHeader}>
-          <Text style={s.progressLabel}>{STEPS[stepIdx].label}...</Text>
+          <Text style={s.progressLabel}>{steps[stepIdx].label}...</Text>
           <Text style={s.progressPct}>{displayPct}%</Text>
         </View>
         <View style={s.track}>
@@ -149,7 +151,7 @@ export default function ScanningOverlay({ fileName }) {
 
       {/* Steps */}
       <View style={s.stepsRow}>
-        {STEPS.map((_, i) => (
+        {steps.map((_, i) => (
           <View
             key={i}
             style={[

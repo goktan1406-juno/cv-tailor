@@ -1,4 +1,16 @@
 export default {
+  // Scanning overlay
+  'scan.title': 'CV Analiz Ediliyor',
+  'scan.subtitle': 'Yapay zeka iş ilanına göre optimize ediyor',
+  'scan.step1': 'PDF okunuyor',
+  'scan.step2': 'Bölümler tespit ediliyor',
+  'scan.step3': 'Anahtar kelimeler taranıyor',
+  'scan.step4': 'İş ilanı analiz ediliyor',
+  'scan.step5': 'Beceriler karşılaştırılıyor',
+  'scan.step6': 'Deneyim özetleri uyarlanıyor',
+  'scan.step7': 'Dil ve ton optimize ediliyor',
+  'scan.step8': 'Son düzenlemeler yapılıyor',
+
   // Header
   'header.cvlerim': "CV'lerim",
   'header.editedCV': 'Düzenlenmiş CV',

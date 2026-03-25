@@ -1,4 +1,16 @@
 export default {
+  // Scanning overlay
+  'scan.title': 'Analyzing CV',
+  'scan.subtitle': 'AI is optimizing based on the job listing',
+  'scan.step1': 'Reading PDF',
+  'scan.step2': 'Detecting sections',
+  'scan.step3': 'Scanning keywords',
+  'scan.step4': 'Analyzing job listing',
+  'scan.step5': 'Comparing skills',
+  'scan.step6': 'Adapting experience summaries',
+  'scan.step7': 'Optimizing language & tone',
+  'scan.step8': 'Applying final touches',
+
   'header.cvlerim': 'My CVs',
   'header.editedCV': 'Tailored CV',
   'header.editCV': 'Edit CV',
