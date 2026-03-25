@@ -19,10 +19,7 @@ export async function tailorCV({ cvUri, cvFileName, cvText, jobDescription }) {
   const response = await axios.post(
     `${BACKEND_URL}/tailor`,
     formData,
-    {
-      headers: { 'Content-Type': 'multipart/form-data' },
-      timeout: 120000,
-    }
+    { timeout: 120000 }
   );
   return response.data;
 }
