@@ -165,7 +165,7 @@ export default function SubscriptionScreen({ navigation }) {
               </View>
               <View style={s.planPriceCol}>
                 <Text style={s.planPrice}>₺1.299,99</Text>
-                <Text style={s.planPriceSub}>₺24,99 / hafta</Text>
+                <Text style={s.planPriceSub}>₺24,99 / week</Text>
               </View>
             </View>
           </TouchableOpacity>
@@ -185,7 +185,7 @@ export default function SubscriptionScreen({ navigation }) {
                 <Text style={s.planDetail}>{t('sub.weeklyDetail')}</Text>
               </View>
               <View style={s.planPriceCol}>
-                <Text style={s.planPrice}>₺79,99</Text>
+                <Text style={s.planPrice}>₺49,99</Text>
                 <Text style={s.planPriceSub}>{t('sub.perWeek')}</Text>
               </View>
             </View>
@@ -200,7 +200,7 @@ export default function SubscriptionScreen({ navigation }) {
             {loading
               ? <ActivityIndicator color="#fff" />
               : <Text style={s.ctaText}>
-                  {selected === 'yearly' ? '₺1.299,99 ile Başla' : '₺79,99 ile Başla'}
+                  {selected === 'yearly' ? '₺1.299,99 ile Başla' : '₺49,99 ile Başla'}
                 </Text>
             }
           </TouchableOpacity>

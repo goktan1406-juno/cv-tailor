@@ -3,7 +3,7 @@ import { Platform } from 'react-native';
 
 // ─── RevenueCat API Keys ────────────────────────────────────────────────────
 // Bunları RevenueCat Dashboard > Project Settings > API Keys bölümünden alın
-const RC_IOS_KEY = 'appl_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';   // TODO: RevenueCat iOS key
+const RC_IOS_KEY = 'appl_UKglJOHrbeNdPkOGBKhJbPeWkjA';
 const RC_ANDROID_KEY = 'goog_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'; // TODO: RevenueCat Android key
 
 // ─── App Store Connect'te oluşturulacak ürün ID'leri ────────────────────────

@@ -6,8 +6,8 @@ const FREE_CREDITS = 1; // yeni kullanıcıya verilen ücretsiz kredi
 const PLANS = {
   weekly: {
     label: 'Haftalık',
-    price: '₺79,99',
-    priceRaw: 79.99,
+    price: '₺49,99',
+    priceRaw: 49.99,
     creditsPerWeek: 5,
     intervalDays: 7,
   },
@@ -23,9 +23,9 @@ const PLANS = {
 };
 
 const CREDIT_PACKS = [
-  { id: 'pack5',  label: '5 Kredi',  credits: 5,  price: '₺39,99',  priceRaw: 39.99,  popular: false },
-  { id: 'pack10', label: '10 Kredi', credits: 10, price: '₺69,99',  priceRaw: 69.99,  popular: true  },
-  { id: 'pack20', label: '20 Kredi', credits: 20, price: '₺119,99', priceRaw: 119.99, popular: false },
+  { id: 'pack5',  label: '5 Kredi',  credits: 5,  price: '₺49,99',  priceRaw: 49.99,  popular: false },
+  { id: 'pack10', label: '10 Kredi', credits: 10, price: '₺99,99',  priceRaw: 99.99,  popular: true  },
+  { id: 'pack20', label: '20 Kredi', credits: 20, price: '₺149,99', priceRaw: 149.99, popular: false },
 ];
 
 function readData() {
