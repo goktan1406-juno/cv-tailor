@@ -133,7 +133,7 @@ app.post('/tailor', async (req, res) => {
           Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
           'Content-Type': 'application/json',
         },
-        timeout: 55000,
+        timeout: 100000,
         signal: controller.signal,
       }
     );

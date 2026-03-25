@@ -5,7 +5,7 @@ export async function tailorCV({ cvBase64, cvFileName, cvText, jobDescription })
   const response = await axios.post(
     `${BACKEND_URL}/tailor`,
     { cvBase64, cvFileName, cvText, jobDescription },
-    { timeout: 60000 }
+    { timeout: 120000 }
   );
   return response.data;
 }
