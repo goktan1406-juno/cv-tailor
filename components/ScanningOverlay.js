@@ -5,6 +5,7 @@ import {
   Animated,
   Easing,
   StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
 import { t } from '../services/i18n';
 
@@ -39,12 +40,18 @@ const DOC_LINES = [
   { w: '80%', bold: false },
 ];
 
-export default function ScanningOverlay({ fileName }) {
+export default function ScanningOverlay({ fileName, onCancel }) {
   const steps = STEPS();
   const scanAnim = useRef(new Animated.Value(0)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const [stepIdx, setStepIdx] = useState(0);
   const [displayPct, setDisplayPct] = useState(0);
+  const [showSlow, setShowSlow] = useState(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => setShowSlow(true), 30000);
+    return () => clearTimeout(t);
+  }, []);
 
   useEffect(() => {
     Animated.timing(fadeAnim, { toValue: 1, duration: 400, useNativeDriver: true }).start();
@@ -165,6 +172,18 @@ export default function ScanningOverlay({ fileName }) {
           />
         ))}
       </View>
+
+      {/* Yavaş bağlantı uyarısı + iptal */}
+      {showSlow && (
+        <View style={s.slowWrap}>
+          <Text style={s.slowText}>Bu normalden uzun sürüyor...</Text>
+          {onCancel && (
+            <TouchableOpacity onPress={onCancel} style={s.cancelBtn}>
+              <Text style={s.cancelText}>İptal Et</Text>
+            </TouchableOpacity>
+          )}
+        </View>
+      )}
     </Animated.View>
   );
 }
@@ -261,6 +280,10 @@ const s = StyleSheet.create({
   },
 
   stepsRow: { flexDirection: 'row', justifyContent: 'center', gap: 6 },
+  slowWrap: { alignItems: 'center', marginTop: 24, gap: 10 },
+  slowText: { fontSize: 12, color: '#94A3B8', textAlign: 'center' },
+  cancelBtn: { paddingHorizontal: 20, paddingVertical: 8, borderRadius: 8, borderWidth: 1, borderColor: '#E2E8F0' },
+  cancelText: { fontSize: 13, color: '#64748B', fontWeight: '600' },
   stepDot: {
     width: 6, height: 6, borderRadius: 3, backgroundColor: '#E5E7EB',
   },

@@ -99,7 +99,12 @@ export default function HomeScreen({ navigation }) {
   };
 
   if (loading) {
-    return <ScanningOverlay fileName={cvFile?.name} />;
+    return (
+      <ScanningOverlay
+        fileName={cvFile?.name}
+        onCancel={() => setLoading(false)}
+      />
+    );
   }
 
   return (
