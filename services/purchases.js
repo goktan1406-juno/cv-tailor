@@ -22,10 +22,14 @@ let initialized = false;
 
 export function initPurchases() {
   if (initialized) return;
-  if (__DEV__) Purchases.setLogLevel(LOG_LEVEL.DEBUG);
-  const apiKey = Platform.OS === 'ios' ? RC_IOS_KEY : RC_ANDROID_KEY;
-  Purchases.configure({ apiKey });
-  initialized = true;
+  try {
+    if (__DEV__) Purchases.setLogLevel(LOG_LEVEL.DEBUG);
+    const apiKey = Platform.OS === 'ios' ? RC_IOS_KEY : RC_ANDROID_KEY;
+    Purchases.configure({ apiKey });
+    initialized = true;
+  } catch {
+    // Expo Go'da native modül yok, EAS build'de çalışır
+  }
 }
 
 // Abonelik satın al (WEEKLY veya YEARLY)
