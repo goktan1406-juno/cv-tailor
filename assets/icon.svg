@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <!-- Background -->
+  <rect width="1024" height="1024" fill="#4F46E5"/>
+
+  <!-- 3 white lines (matching homepage logo: decreasing width + opacity) -->
+  <rect x="307" y="403" width="410" height="46" rx="10" fill="#FFFFFF" opacity="0.9"/>
+  <rect x="307" y="489" width="296" height="46" rx="10" fill="#FFFFFF" opacity="0.6"/>
+  <rect x="307" y="575" width="228" height="46" rx="10" fill="#FFFFFF" opacity="0.4"/>
+
+  <!-- Cyan spark dot (top-right of lines) -->
+  <circle cx="748" cy="390" r="30" fill="#A5F3FC"/>
+</svg>
