@@ -103,10 +103,6 @@ app.get('/health', (_req, res) => {
 });
 
 app.post('/tailor', upload.single('pdf'), async (req, res) => {
-  // Client bağlantıyı keserse OpenAI isteğini iptal et
-  let aborted = false;
-  req.on('close', () => { aborted = true; });
-
   const { cvText, jobDescription } = req.body;
   const pdfFile = req.file;
 
@@ -136,9 +132,6 @@ app.post('/tailor', upload.single('pdf'), async (req, res) => {
       ];
 
   try {
-    const controller = new AbortController();
-    req.on('close', () => controller.abort());
-
     const response = await axios.post(
       'https://api.openai.com/v1/chat/completions',
       {
@@ -156,16 +149,12 @@ app.post('/tailor', upload.single('pdf'), async (req, res) => {
           'Content-Type': 'application/json',
         },
         timeout: 100000,
-        signal: controller.signal,
       }
     );
-
-    if (aborted) return;
 
     const raw = response.data.choices[0].message.content;
     res.json(JSON.parse(raw));
   } catch (err) {
-    if (aborted || err.code === 'ERR_CANCELED') return;
     const status = err.response?.status || 500;
     const message = err.response?.data?.error?.message || err.message || 'Unexpected error';
     res.status(status).json({ error: message });
