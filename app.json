@@ -19,7 +19,8 @@
         "NSDocumentPickerUsageDescription": "CV dosyanızı seçmek için doküman erişimi gereklidir.",
         "NSPhotoLibraryUsageDescription": "CV dosyanızı seçmek için fotoğraf kitaplığı erişimi gereklidir.",
         "NSUserTrackingUsageDescription": "Uygulama deneyiminizi kişiselleştirmek ve abonelik işlemlerini doğrulamak için kullanılır.",
-        "CFBundleAllowMixedLocalizations": true
+        "CFBundleAllowMixedLocalizations": true,
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
