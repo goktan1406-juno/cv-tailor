@@ -153,7 +153,11 @@ app.post('/tailor', upload.single('pdf'), async (req, res) => {
     );
 
     const raw = response.data.choices[0].message.content;
-    res.json(JSON.parse(raw));
+    let parsed;
+    try { parsed = JSON.parse(raw); } catch {
+      return res.status(500).json({ error: 'AI response could not be parsed. Please try again.' });
+    }
+    res.json(parsed);
   } catch (err) {
     const status = err.response?.status || 500;
     const message = err.response?.data?.error?.message || err.message || 'Unexpected error';

@@ -32,8 +32,13 @@ export function initPurchases() {
   }
 }
 
+function assertInitialized() {
+  if (!initialized) throw new Error('Satın alma servisi başlatılamadı. Lütfen tekrar deneyin.');
+}
+
 // Abonelik satın al (WEEKLY veya YEARLY)
 export async function purchaseSubscription(productId) {
+  assertInitialized();
   const products = await Purchases.getProducts([productId]);
   if (!products || products.length === 0) {
     throw new Error('Ürün bulunamadı. Lütfen internet bağlantınızı kontrol edin.');
@@ -44,6 +49,7 @@ export async function purchaseSubscription(productId) {
 
 // Kredi paketi satın al (consumable)
 export async function purchaseCreditPack(productId) {
+  assertInitialized();
   const products = await Purchases.getProducts([productId]);
   if (!products || products.length === 0) {
     throw new Error('Ürün bulunamadı. Lütfen internet bağlantınızı kontrol edin.');
@@ -54,12 +60,14 @@ export async function purchaseCreditPack(productId) {
 
 // Geçmiş satın alımları geri yükle
 export async function restorePurchases() {
+  assertInitialized();
   const customerInfo = await Purchases.restorePurchases();
   return customerInfo;
 }
 
 // Mevcut müşteri bilgilerini al
 export async function getCustomerInfo() {
+  assertInitialized();
   return await Purchases.getCustomerInfo();
 }
 
