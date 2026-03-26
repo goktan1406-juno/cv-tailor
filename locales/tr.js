@@ -98,6 +98,7 @@ export default {
   'sub.weekly': 'Haftalık',
   'sub.weeklyDetail': '5 kredi / hafta · otomatik yenilenir',
   'sub.perWeek': '/ hafta',
+  'sub.startWith': 'ile Başla',
   'sub.cancelNote': 'Yenilenmeden en az 24 saat önce iptal edebilirsiniz.',
   'sub.cancelBtn': 'Aboneliği İptal Et',
   'sub.included': 'Plana dahil',

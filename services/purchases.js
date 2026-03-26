@@ -36,6 +36,20 @@ function assertInitialized() {
   if (!initialized) throw new Error('Satın alma servisi başlatılamadı. Lütfen tekrar deneyin.');
 }
 
+// Tüm ürünlerin yerel para birimindeki fiyatlarını döndürür
+export async function getProductPrices() {
+  if (!initialized) return null;
+  try {
+    const ids = Object.values(PRODUCT_IDS);
+    const products = await Purchases.getProducts(ids);
+    const prices = {};
+    products.forEach(p => { prices[p.identifier] = p.priceString; });
+    return prices;
+  } catch {
+    return null;
+  }
+}
+
 // Abonelik satın al (WEEKLY veya YEARLY)
 export async function purchaseSubscription(productId) {
   assertInitialized();

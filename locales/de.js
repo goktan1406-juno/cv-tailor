@@ -80,6 +80,7 @@ export default {
   'sub.weekly': 'Wöchentlich',
   'sub.weeklyDetail': '5 Credits / Woche · automatische Verlängerung',
   'sub.perWeek': '/ Woche',
+  'sub.startWith': 'Loslegen',
   'sub.cancelNote': 'Jederzeit kündbar.',
   'sub.cancelBtn': 'Abonnement kündigen',
   'sub.included': 'Im Plan enthalten',

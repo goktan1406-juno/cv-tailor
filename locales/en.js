@@ -92,6 +92,7 @@ export default {
   'sub.weekly': 'Weekly',
   'sub.weeklyDetail': '5 credits / week · auto-renews',
   'sub.perWeek': '/ week',
+  'sub.startWith': 'Get Started',
   'sub.cancelNote': 'Cancel at least 24 hours before renewal.',
   'sub.cancelBtn': 'Cancel Subscription',
   'sub.included': "What's included",

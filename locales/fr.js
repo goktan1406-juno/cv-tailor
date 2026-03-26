@@ -80,6 +80,7 @@ export default {
   'sub.weekly': 'Hebdomadaire',
   'sub.weeklyDetail': '5 crédits / semaine · renouvellement auto',
   'sub.perWeek': '/ semaine',
+  'sub.startWith': 'Commencer',
   'sub.cancelNote': 'Annulable à tout moment.',
   'sub.cancelBtn': "Annuler l'abonnement",
   'sub.included': 'Inclus dans le plan',

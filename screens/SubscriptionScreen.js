@@ -4,7 +4,7 @@ import {
   Alert, ActivityIndicator,
 } from 'react-native';
 import { activateSubscription, loadCredits, cancelSubscription, buyCredits, PLANS, CREDIT_PACKS } from '../services/credits';
-import { initPurchases, purchaseSubscription, purchaseCreditPack, restorePurchases, isUserCancelledError, PRODUCT_IDS } from '../services/purchases';
+import { initPurchases, purchaseSubscription, purchaseCreditPack, restorePurchases, isUserCancelledError, PRODUCT_IDS, getProductPrices } from '../services/purchases';
 import { t } from '../services/i18n';
 
 const ACCENT = '#4F46E5';
@@ -23,10 +23,12 @@ export default function SubscriptionScreen({ navigation }) {
   const [loading, setLoading] = useState(false);
   const [packLoading, setPackLoading] = useState(null);
   const [subData, setSubData] = useState(null);
+  const [prices, setPrices] = useState({});
 
   useEffect(() => {
     initPurchases();
     loadCredits().then(setSubData);
+    getProductPrices().then(p => { if (p) setPrices(p); });
   }, []);
 
   const isActive = subData?.subscription &&
@@ -164,8 +166,8 @@ export default function SubscriptionScreen({ navigation }) {
                 <Text style={s.planDetail}>{t('sub.yearlyDetail')}</Text>
               </View>
               <View style={s.planPriceCol}>
-                <Text style={s.planPrice}>₺1.299,99</Text>
-                <Text style={s.planPriceSub}>₺24,99 / week</Text>
+                <Text style={s.planPrice}>{prices[PRODUCT_IDS.SUB_YEARLY] || '₺1.299,99'}</Text>
+                <Text style={s.planPriceSub}>{t('sub.perWeek')}</Text>
               </View>
             </View>
           </TouchableOpacity>
@@ -185,7 +187,7 @@ export default function SubscriptionScreen({ navigation }) {
                 <Text style={s.planDetail}>{t('sub.weeklyDetail')}</Text>
               </View>
               <View style={s.planPriceCol}>
-                <Text style={s.planPrice}>₺49,99</Text>
+                <Text style={s.planPrice}>{prices[PRODUCT_IDS.SUB_WEEKLY] || '₺49,99'}</Text>
                 <Text style={s.planPriceSub}>{t('sub.perWeek')}</Text>
               </View>
             </View>
@@ -200,7 +202,9 @@ export default function SubscriptionScreen({ navigation }) {
             {loading
               ? <ActivityIndicator color="#fff" />
               : <Text style={s.ctaText}>
-                  {selected === 'yearly' ? '₺1.299,99 ile Başla' : '₺49,99 ile Başla'}
+                  {selected === 'yearly'
+  ? `${prices[PRODUCT_IDS.SUB_YEARLY] || '₺1.299,99'} ${t('sub.startWith')}`
+  : `${prices[PRODUCT_IDS.SUB_WEEKLY] || '₺49,99'} ${t('sub.startWith')}`}
                 </Text>
             }
           </TouchableOpacity>
@@ -252,7 +256,7 @@ export default function SubscriptionScreen({ navigation }) {
             <View style={s.packRight}>
               {packLoading === pack.id
                 ? <ActivityIndicator size="small" color={ACCENT} />
-                : <Text style={s.packPrice}>{pack.price}</Text>
+                : <Text style={s.packPrice}>{prices[PRODUCT_IDS[`CREDITS_${pack.credits}`]] || pack.price}</Text>
               }
             </View>
           </TouchableOpacity>
