@@ -11,6 +11,7 @@ import {
   TextInput,
 } from 'react-native';
 import { saveCV } from '../services/storage';
+import * as StoreReview from 'expo-store-review';
 import { hasActiveSubscription } from '../services/credits';
 import { t } from '../services/i18n';
 import * as Sharing from 'expo-sharing';
@@ -243,6 +244,19 @@ export default function ResultScreen({ route, navigation }) {
       navigation.setParams({ updatedCvData: undefined });
     }
   }, [route.params?.updatedCvData]);
+
+  // Ask for review after CV is generated
+  useEffect(() => {
+    const askReview = async () => {
+      try {
+        if (await StoreReview.hasAction()) {
+          StoreReview.requestReview();
+        }
+      } catch { /* ignore */ }
+    };
+    const timer = setTimeout(askReview, 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const { Component } = TEMPLATES.find(t => t.id === selectedId);
 
