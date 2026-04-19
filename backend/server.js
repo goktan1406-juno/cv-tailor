@@ -92,10 +92,11 @@ Rules:
 9. If information is missing, leave the field as empty string or empty array.
 10. score: match score between the CV and the job listing (0-100). Score the optimized version, not the original.
 11. missingSkills: important skills explicitly mentioned in the listing but absent from the CV (max 5). For each:
-    - skill: skill name (in job listing language)
+    - skill: skill name MUST be in the job listing language — if job listing is English, skill must be English; if Turkish, Turkish. Never use a different language than the job listing.
     - placement: "skills" | "summary" | "experience"
-    - suggestion: short natural sentence using this skill, in the job listing language
+    - suggestion: short natural sentence using this skill, MUST be in the job listing language
     - experienceIndex: index of most relevant experience if placement is "experience", otherwise null
+    ⚠️ Even if the CV is in Turkish, missingSkills must use the job listing language.
 12. Return pure JSON only.`;
 
 app.get('/health', (_req, res) => {
